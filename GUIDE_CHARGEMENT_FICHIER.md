@@ -20,14 +20,28 @@ Dans la barre latérale gauche, vous verrez une section **"Chargement des Donné
 1. **Fichier par défaut** : Utilise `MISSION_DE_SUIVI_cleaned.xlsx`
 2. **Charger un fichier Excel** : Permet de charger votre propre fichier
 
-### Étape 3 : Charger Votre Fichier
+### Étape 3 : Télécharger le Template (Nouveau !)
+
+Lorsque vous sélectionnez **"Charger un fichier Excel"**, un bouton apparaît automatiquement :
+
+**📥 Télécharger le Template Excel**
+
+1. Cliquez sur ce bouton pour télécharger le fichier template
+2. Le fichier `TEMPLATE_ProSMAT_Cooperatives.xlsx` sera téléchargé
+3. Ouvrez-le dans Excel
+4. Remplissez-le avec vos données (vous pouvez supprimer les exemples)
+5. Sauvegardez le fichier
+
+### Étape 4 : Charger Votre Fichier
 
 1. Sélectionnez **"Charger un fichier Excel"**
-2. Cliquez sur **"Browse files"** ou glissez-déposez votre fichier
-3. Le fichier doit être au format `.xlsx` ou `.xls`
-4. Une fois chargé, le nom du fichier s'affiche avec un message de confirmation
+2. **Téléchargez le template** en cliquant sur le bouton "📥 Télécharger le Template Excel"
+3. Remplissez le template avec vos données
+4. Cliquez sur **"Browse files"** ou glissez-déposez votre fichier
+5. Le fichier doit être au format `.xlsx` ou `.xls`
+6. Une fois chargé, le nom du fichier s'affiche avec un message de confirmation
 
-### Étape 4 : Analyser Vos Données
+### Étape 5 : Analyser Vos Données
 
 Le dashboard charge automatiquement vos données et vous pouvez :
 - Utiliser tous les filtres

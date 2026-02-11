@@ -1326,17 +1326,54 @@ def main():
     
     uploaded_file = None
     if data_source == "Charger un fichier Excel":
+        # Bouton de téléchargement du template
+        st.sidebar.markdown("#### Télécharger le Template")
+        st.sidebar.caption("Utilisez ce fichier comme modèle pour vos données")
+        
+        # Charger le fichier template pour le téléchargement
+        try:
+            with open('MISSION_DE_SUIVI_cleaned.xlsx', 'rb') as template_file:
+                template_data = template_file.read()
+            
+            st.sidebar.download_button(
+                label="📥 Télécharger le Template Excel",
+                data=template_data,
+                file_name="TEMPLATE_ProSMAT_Cooperatives.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                help="Téléchargez ce fichier, remplissez-le avec vos données, puis rechargez-le"
+            )
+        except FileNotFoundError:
+            st.sidebar.error("Template non disponible")
+        
+        st.sidebar.markdown("---")
+        
+        # File uploader
         uploaded_file = st.sidebar.file_uploader(
             "Choisir un fichier Excel",
             type=['xlsx', 'xls'],
-            help="Le fichier doit avoir la même structure que MISSION_DE_SUIVI_cleaned.xlsx"
+            help="Le fichier doit avoir la même structure que le template téléchargé"
         )
         
         if uploaded_file is not None:
-            st.sidebar.success(f"Fichier chargé : {uploaded_file.name}")
+            st.sidebar.success(f"✓ Fichier chargé : {uploaded_file.name}")
         else:
-            st.sidebar.warning("Veuillez charger un fichier Excel")
-            st.info("En attente du chargement d'un fichier Excel. Utilisez la barre latérale pour charger votre fichier.")
+            st.sidebar.warning("⚠ Veuillez charger un fichier Excel")
+            
+            # Message d'information avec instructions
+            st.info("""
+            ### 📋 Instructions de Chargement
+            
+            1. **Téléchargez le template** Excel depuis la barre latérale
+            2. **Remplissez-le** avec vos données de coopératives
+            3. **Sauvegardez** le fichier sur votre ordinateur
+            4. **Chargez-le** en utilisant le bouton "Browse files" dans la barre latérale
+            
+            **Format requis :**
+            - Colonnes : Région, Préfecture, Commune, Village, Coopérative, Effectifs, GPS
+            - Coordonnées GPS valides (Latitude: 5-12, Longitude: -1 à 2)
+            
+            Consultez **TEMPLATE_EXCEL_FORMAT.md** pour plus de détails.
+            """)
             st.stop()
     
     st.sidebar.markdown("---")
