@@ -183,9 +183,12 @@ st.markdown("""
 # FONCTIONS DE CHARGEMENT DES DONNÉES
 # =====================================================
 @st.cache_data
-def load_excel_data():
+def load_excel_data(uploaded_file=None):
     """Charger et nettoyer les données Excel"""
-    df = pd.read_excel('MISSION_DE_SUIVI_cleaned.xlsx')
+    if uploaded_file is not None:
+        df = pd.read_excel(uploaded_file)
+    else:
+        df = pd.read_excel('MISSION_DE_SUIVI_cleaned.xlsx')
 
     # Mapping des colonnes - ATTENTION aux espaces dans les noms originaux
     column_mapping = {
@@ -1312,10 +1315,35 @@ def main():
         """, unsafe_allow_html=True)
     
     st.markdown("---")
+    
+    # Option de chargement de fichier
+    st.sidebar.markdown("### Chargement des Données")
+    data_source = st.sidebar.radio(
+        "Source des données",
+        ["Fichier par défaut", "Charger un fichier Excel"],
+        help="Choisissez d'utiliser le fichier par défaut ou de charger votre propre fichier Excel"
+    )
+    
+    uploaded_file = None
+    if data_source == "Charger un fichier Excel":
+        uploaded_file = st.sidebar.file_uploader(
+            "Choisir un fichier Excel",
+            type=['xlsx', 'xls'],
+            help="Le fichier doit avoir la même structure que MISSION_DE_SUIVI_cleaned.xlsx"
+        )
+        
+        if uploaded_file is not None:
+            st.sidebar.success(f"Fichier chargé : {uploaded_file.name}")
+        else:
+            st.sidebar.warning("Veuillez charger un fichier Excel")
+            st.info("En attente du chargement d'un fichier Excel. Utilisez la barre latérale pour charger votre fichier.")
+            st.stop()
+    
+    st.sidebar.markdown("---")
 
     # Charger les données
     with st.spinner('Chargement des donnees...'):
-        df = load_excel_data()
+        df = load_excel_data(uploaded_file)
         gdf_regions, gdf_prefectures, gdf_country = load_geodata()
 
     # =====================================================
@@ -1466,16 +1494,29 @@ def main():
         - Filtres hierarchiques
         - Analyses statistiques
         - Export des donnees
+        - Chargement de fichiers Excel personnalisés
         """)
+        
+        # Afficher les informations sur le fichier chargé
+        if uploaded_file is not None:
+            st.markdown("---")
+            st.markdown("**Fichier chargé:**")
+            st.info(f"📄 {uploaded_file.name}")
+            st.caption(f"Nombre de coopératives: {len(df)}")
     
     with st.sidebar.expander("Guide d'utilisation"):
         st.markdown("""
         **Comment utiliser ce dashboard:**
         
-        1. **Filtres**: Selectionnez vos criteres dans la barre laterale
-        2. **Cartes**: Explorez les onglets pour differentes visualisations
-        3. **Zoom**: Utilisez le slider de zoom pour explorer en detail
-        4. **Export**: Telechargez les cartes et donnees
+        1. **Source de données**: Choisissez le fichier par défaut ou chargez votre propre fichier Excel
+        2. **Filtres**: Selectionnez vos criteres dans la barre laterale
+        3. **Cartes**: Explorez les onglets pour differentes visualisations
+        4. **Zoom**: Utilisez le slider de zoom pour explorer en detail
+        5. **Export**: Telechargez les cartes et donnees
+        
+        **Format du fichier Excel:**
+        - Le fichier doit contenir les colonnes: Région, Préfecture, Commune, Village, Coopérative, Effectifs, Coordonnées GPS
+        - Structure identique à MISSION_DE_SUIVI_cleaned.xlsx
         """)
     
     # Signature du développeur
@@ -1585,7 +1626,7 @@ def main():
     # TAB 2: CARTE SIG MATPLOTLIB
     # =====================================================
     with tab2:
-        st.subheader("Cartes SIG Statiques (Matplotlib/GeoPandas)")
+        st.subheader("Cartes SIG Statiques")
         
         # Contrôles de zoom et de carte
         col1, col2, col3 = st.columns([2, 1, 1])
@@ -1879,7 +1920,7 @@ def main():
     # TAB 3: ANALYSES DATA SCIENCE
     # =====================================================
     with tab3:
-        st.subheader("Analyses Data Science")
+        st.subheader("Analyses des données")
 
         # Sous-onglets pour les analyses
         analysis_tab1, analysis_tab2, analysis_tab3, analysis_tab4 = st.tabs([
