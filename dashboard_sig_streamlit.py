@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dashboard SIG Avancé - Mission de Suivi des Coopératives au Togo
+Dashboard SIG Avancé - Mission de Suivi des Coopératives ProSMAT
 Niveau Data Science avec Streamlit
 Deux cartes séparées: Folium (interactive) et SIG (matplotlib)
 
@@ -48,7 +48,7 @@ from map_utils import (
 
 # Configuration de la page
 st.set_page_config(
-    page_title="Dashboard SIG - Cooperatives Togo",
+    page_title="Dashboard SIG - Cooperatives ProSMAT",
     page_icon="",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -1310,7 +1310,7 @@ def main():
         st.markdown("""
         <div style="padding-top: 20px;">
             <h1 style="color: #1e3c72; margin-bottom: 0;">Dashboard SIG ProSMAT</h1>
-            <h3 style="color: #7e8ba3; margin-top: 0;">Mission de Suivi des Cooperatives Agricoles au Togo</h3>
+            <h3 style="color: #7e8ba3; margin-top: 0;">Mission de Suivi des Cooperatives Agricoles ProsMAT</h3>
         </div>
         """, unsafe_allow_html=True)
     
@@ -1524,7 +1524,7 @@ def main():
         st.markdown("""
         **Dashboard SIG ProSMAT**
         
-        Ce tableau de bord permet de visualiser et analyser les donnees des cooperatives agricoles au Togo.
+        Ce tableau de bord permet de visualiser et analyser les donnees des cooperatives agricoles de ProSMAT.
         
         **Fonctionnalites:**
         - Cartes interactives et statiques
@@ -2873,7 +2873,7 @@ def main():
     <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
                 border-radius: 10px; margin-top: 30px;">
         <p style="margin: 0; color: #2c3e50; font-size: 14px; font-weight: bold;">
-            Dashboard SIG - Mission de Suivi des Coopératives Agricoles au Togo
+            Dashboard SIG - Mission de Suivi des Coopératives Agricoles ProSMAT
         </p>
         <p style="margin: 5px 0; color: #7f8c8d; font-size: 12px;">
             Données GADM41 | Développé avec Streamlit, Folium, GeoPandas & Plotly
